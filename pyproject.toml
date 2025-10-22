@@ -9,13 +9,13 @@ description = "A Python template engine with support for variables, functions, c
 authors = [
     {name = "Yannick Zimmermann", email = "yannick.zimmermann@proton.me"}
 ]
-license = {text = "MIT"}
+license = "MIT"
 readme = "README.md"
 requires-python = ">=3.8"
+keywords = ["template", "templating", "engine", "jinja", "mustache", "handlebars"]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
@@ -23,6 +23,12 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
 ]
+
+[project.urls]
+Homepage = "https://github.com/zimmer-yan/py-template-engine"
+Repository = "https://github.com/zimmer-yan/py-template-engine"
+Documentation = "https://github.com/zimmer-yan/py-template-engine#readme"
+"Bug Tracker" = "https://github.com/zimmer-yan/py-template-engine/issues"
 
 [project.optional-dependencies]
 dev = [

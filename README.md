@@ -2,9 +2,11 @@
 
 A powerful, lightweight template engine for Python with support for variables, functions, conditionals, loops, and file includes. Built for simplicity and extensibility.
 
-[![Tests](https://img.shields.io/badge/tests-54%20passed-brightgreen)](./tests)
+[![PyPI version](https://img.shields.io/pypi/v/py-template-engine.svg)](https://pypi.org/project/py-template-engine/)
+[![Tests](https://img.shields.io/badge/tests-63%20passed-brightgreen)](./tests)
 [![Python](https://img.shields.io/badge/python-3.8%2B-blue)](https://python.org)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+[![Downloads](https://img.shields.io/pypi/dm/py-template-engine.svg)](https://pypi.org/project/py-template-engine/)
 
 ## ✨ Features
 
@@ -14,7 +16,7 @@ A powerful, lightweight template engine for Python with support for variables, f
 - 🔄 **Loops** - `{{#EACH items AS item}}...{{/EACH}}`
 - 📄 **File includes** - `{{#INCLUDE file_path}}`
 - 🎨 **Template rendering** - `{{#RENDER template_path}}`
-- 🧪 **Fully tested** - Comprehensive test suite with 54 tests
+- 🧪 **Fully tested** - Comprehensive test suite with 63 tests
 - 🎯 **Type hints** - Full type annotation support
 - 🏗️ **Extensible** - Modular architecture for custom engines
 
@@ -22,10 +24,17 @@ A powerful, lightweight template engine for Python with support for variables, f
 
 ### Installation
 
+#### **From PyPI (Recommended)**
+```bash
+# Install from PyPI
+pip install py-template-engine
+```
+
+#### **From Source**
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/py-templater.git
-cd py-templater
+git clone https://github.com/zimmer-yan/py-template-engine.git
+cd py-template-engine
 
 # Create virtual environment (recommended)
 python3 -m venv .venv
@@ -33,6 +42,12 @@ source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 
 # Install in development mode
 pip install -e .
+```
+
+#### **Direct from GitHub**
+```bash
+# Install directly from GitHub
+pip install git+https://github.com/zimmer-yan/py-template-engine.git
 ```
 
 ### Basic Usage
@@ -257,7 +272,7 @@ python tests/test_template_engine.py
 pytest tests --cov=py_template_engine
 ```
 
-**Test Coverage**: 54 tests covering all features:
+**Test Coverage**: 63 tests covering all features:
 - Variable substitution (basic + nested)
 - Function calls (simple + nested objects)
 - Conditional logic (IF/ELSE + nested)
