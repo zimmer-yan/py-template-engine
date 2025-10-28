@@ -1,3 +1,6 @@
+# v0.2.2
+- Fix missing pytest-cov dependency
+
 # v0.2.1
 - Fix pyproject.toml license configuration
 

@@ -33,6 +33,7 @@ Documentation = "https://github.com/zimmer-yan/py-template-engine#readme"
 [project.optional-dependencies]
 dev = [
     "pytest>=7.0.0",
+    "pytest-cov>=2.0",
     "black>=22.0.0",
     "flake8>=5.0.0",
     "mypy>=0.991",
