@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Any
+from typing import Any, Dict
 
 
 class TemplaterInterface(ABC):
@@ -7,5 +7,5 @@ class TemplaterInterface(ABC):
         self.raise_on_error = raise_on_error
 
     @abstractmethod
-    def render(self, template: str, **kwargs: dict[str, Any]) -> str:
+    def render(self, template: str, **kwargs: Dict[str, Any]) -> str:
         raise NotImplementedError

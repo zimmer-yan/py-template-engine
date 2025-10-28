@@ -1,3 +1,6 @@
+# v0.2.3
+- Fix python3.8 error of dict not being subscriptable
+
 # v0.2.2
 - Fix missing pytest-cov dependency
 

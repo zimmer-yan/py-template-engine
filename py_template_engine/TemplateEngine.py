@@ -1,5 +1,5 @@
 from functools import reduce
-from typing import Any, Optional
+from typing import Any, Optional, Dict
 
 from .sub_engines.EachTemplater import EachTemplater
 from .sub_engines.FunctionTemplater import FunctionTemplater
@@ -34,7 +34,7 @@ class TemplateEngine:
         with open(template_path, "r") as file:
             self._template = file.read()
 
-    def render(self, **kwargs: dict[str, Any]) -> str:
+    def render(self, **kwargs: Dict[str, Any]) -> str:
         return reduce(
             lambda acc, templater: templater.render(acc, **kwargs),
             self._templaters,
