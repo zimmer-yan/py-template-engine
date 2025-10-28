@@ -1,3 +1,6 @@
+# v0.2.1
+- Fix pyproject.toml license configuration
+
 # v0.2.0 
 - Add option to have errors thrown when running into an issue or to just ignore and leave the variable as is
 - Add github pipeline

@@ -9,7 +9,7 @@ description = "A Python template engine with support for variables, functions, c
 authors = [
     {name = "Yannick Zimmermann", email = "yannick.zimmermann@proton.me"}
 ]
-license = "MIT"
+license = {text = "MIT"}
 readme = "README.md"
 requires-python = ">=3.8"
 keywords = ["template", "templating", "engine", "jinja", "mustache", "handlebars"]
