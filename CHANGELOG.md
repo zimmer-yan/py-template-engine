@@ -1,3 +1,6 @@
+# v0.2.4
+- Update README
+
 # v0.2.3
 - Fix python3.8 error of dict not being subscriptable
 

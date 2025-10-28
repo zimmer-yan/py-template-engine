@@ -3,7 +3,8 @@
 A powerful, lightweight template engine for Python with support for variables, functions, conditionals, loops, and file includes. Built for simplicity and extensibility.
 
 [![PyPI version](https://img.shields.io/pypi/v/py-template-engine.svg)](https://pypi.org/project/py-template-engine/)
-[![Tests](https://img.shields.io/badge/tests-63%20passed-brightgreen)](./tests)
+[![Tests](https://img.shields.io/badge/tests-73%20passed-brightgreen)](./tests)
+[![Coverage](https://codecov.io/gh/zimmer-yan/py-template-engine/branch/main/graph/badge.svg)](https://codecov.io/gh/zimmer-yan/py-template-engine)
 [![Python](https://img.shields.io/badge/python-3.8%2B-blue)](https://python.org)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![Downloads](https://img.shields.io/pypi/dm/py-template-engine.svg)](https://pypi.org/project/py-template-engine/)
