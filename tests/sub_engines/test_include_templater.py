@@ -3,7 +3,7 @@ import tempfile
 from unittest import TestCase
 
 from py_template_engine.sub_engines.IncludeTemplater import IncludeTemplater
-
+from py_template_engine.RenderError import RenderError
 
 class TestIncludeTemplater(TestCase):
 
@@ -37,21 +37,19 @@ class TestIncludeTemplater(TestCase):
 
     def test_basic_include(self):
         """Test basic file inclusion functionality."""
-        template = "{{#INCLUDE header_path}}"
-        result = self.templater.render(template, header_path=self.header_file)
+        template = f"{{{{#INCLUDE {self.header_file}}}}}"
+        result = self.templater.render(template)
         self.assertEqual(result, "<header><h1>My Website</h1></header>")
 
     def test_multiple_includes(self):
         """Test including multiple files in one template."""
-        template = """
-        {{#INCLUDE header_path}}
+        template = f"""
+        {{{{#INCLUDE {self.header_file}}}}}
         <main>Content here</main>
-        {{#INCLUDE footer_path}}
+        {{{{#INCLUDE {self.footer_file}}}}}
         """.strip()
 
-        result = self.templater.render(
-            template, header_path=self.header_file, footer_path=self.footer_file
-        )
+        result = self.templater.render(template)
 
         self.assertIn("<header><h1>My Website</h1></header>", result)
         self.assertIn("<main>Content here</main>", result)
@@ -59,13 +57,13 @@ class TestIncludeTemplater(TestCase):
 
     def test_same_file_multiple_times(self):
         """Test including the same file multiple times."""
-        template = """
-        {{#INCLUDE nav_path}}
+        template = f"""
+        {{{{#INCLUDE {self.nav_file}}}}}
         <main>Some content</main>
-        {{#INCLUDE nav_path}}
+        {{{{#INCLUDE {self.nav_file}}}}}
         """.strip()
 
-        result = self.templater.render(template, nav_path=self.nav_file)
+        result = self.templater.render(template)
 
         # Should contain the nav content twice
         nav_content = "<nav><a href='/home'>Home</a><a href='/about'>About</a></nav>"
@@ -73,25 +71,20 @@ class TestIncludeTemplater(TestCase):
 
     def test_nested_includes_structure(self):
         """Test a complete page structure with includes."""
-        template = """<!DOCTYPE html>
+        template = f"""<!DOCTYPE html>
 <html>
 <head><title>Test Page</title></head>
 <body>
-{{#INCLUDE header_path}}
-{{#INCLUDE nav_path}}
+{{{{#INCLUDE {self.header_file}}}}}
+{{{{#INCLUDE {self.nav_file}}}}}
 <main>
     <p>Welcome to our website!</p>
 </main>
-{{#INCLUDE footer_path}}
+{{{{#INCLUDE {self.footer_file}}}}}
 </body>
 </html>"""
 
-        result = self.templater.render(
-            template,
-            header_path=self.header_file,
-            nav_path=self.nav_file,
-            footer_path=self.footer_file,
-        )
+        result = self.templater.render(template)
 
         # Verify all parts are included
         self.assertIn("<header><h1>My Website</h1></header>", result)
@@ -103,16 +96,13 @@ class TestIncludeTemplater(TestCase):
 
     def test_include_with_different_variable_names(self):
         """Test includes with various variable naming patterns."""
-        template = (
-            "{{#INCLUDE my_header}} {{#INCLUDE content_file}} {{#INCLUDE page_footer}}"
-        )
+        template = f"""
+        {{{{#INCLUDE {self.header_file}}}}}
+        {{{{#INCLUDE {self.nav_file}}}}}
+        {{{{#INCLUDE {self.footer_file}}}}}
+        """
 
-        result = self.templater.render(
-            template,
-            my_header=self.header_file,
-            content_file=self.nav_file,
-            page_footer=self.footer_file,
-        )
+        result = self.templater.render(template)
 
         self.assertIn("<header><h1>My Website</h1></header>", result)
         self.assertIn(
@@ -133,20 +123,20 @@ class TestIncludeTemplater(TestCase):
         result = self.templater.render(template)
         self.assertEqual(result, template)
 
-    def test_file_not_found_error(self):
+    def test_file_not_found_error_dont_raise(self):
         """Test behavior when included file doesn't exist."""
         template = "{{#INCLUDE missing_file}}"
-        nonexistent_file = os.path.join(self.temp_dir, "nonexistent.html")
 
-        with self.assertRaises(FileNotFoundError):
-            self.templater.render(template, missing_file=nonexistent_file)
+        result = self.templater.render(template)
+        self.assertEqual(result, "{{#INCLUDE missing_file}}")
 
-    def test_missing_variable_error(self):
-        """Test behavior when include variable is not provided."""
-        template = "{{#INCLUDE missing_var}}"
+    def test_file_not_found_error_raise(self):
+        """Test behavior when included file doesn't exist."""
+        template = "{{#INCLUDE missing_file}}"
 
-        with self.assertRaises(KeyError):
-            self.templater.render(template)
+        templater = IncludeTemplater(raise_on_error=True)
+        with self.assertRaises(RenderError, msg="Trying to include file but could not find path 'missing_file'"):
+            templater.render(template)
 
     def test_empty_file_include(self):
         """Test including an empty file."""
@@ -154,6 +144,6 @@ class TestIncludeTemplater(TestCase):
         with open(empty_file, "w") as f:
             f.write("")  # Empty file
 
-        template = "Before{{#INCLUDE empty_file}}After"
-        result = self.templater.render(template, empty_file=empty_file)
+        template = f"Before{{{{#INCLUDE {empty_file}}}}}After"
+        result = self.templater.render(template)
         self.assertEqual(result, "BeforeAfter")

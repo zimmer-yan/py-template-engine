@@ -97,9 +97,9 @@ class TestTemplateEngine(TestCase):
             temp_file_path = f.name
 
         try:
-            template = "{{#INCLUDE header_file}}"
+            template = f"{{{{#INCLUDE {temp_file_path}}}}}"
             engine = TemplateEngine(template_string=template)
-            result = engine.render(header_file=temp_file_path)
+            result = engine.render()
             self.assertEqual(result, "<header>Welcome!</header>")
         finally:
             # Clean up

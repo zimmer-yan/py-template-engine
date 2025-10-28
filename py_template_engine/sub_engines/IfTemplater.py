@@ -2,6 +2,7 @@ import re
 from functools import reduce
 
 from py_template_engine.TemplaterInterface import TemplaterInterface
+from py_template_engine.RenderError import RenderError
 
 
 class IfTemplater(TemplaterInterface):

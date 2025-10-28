@@ -1,5 +1,6 @@
 import re
 
+from py_template_engine.RenderError import RenderError
 from py_template_engine.TemplaterInterface import TemplaterInterface
 
 
@@ -15,4 +16,10 @@ class RenderTemplater(TemplaterInterface):
         # Import here to avoid circular import
         from py_template_engine.TemplateEngine import TemplateEngine
 
-        return TemplateEngine(template_path=render_path).render(**kwargs)
+        try:
+            return TemplateEngine(template_path=render_path).render(**kwargs)
+        except FileNotFoundError as e:
+            if self.raise_on_error:
+                raise RenderError(f"Trying to render template but could not find path '{render_path}'")
+            else:
+                return f"{{{{#RENDER {render_path}}}}}"

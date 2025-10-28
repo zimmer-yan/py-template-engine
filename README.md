@@ -16,7 +16,7 @@ A powerful, lightweight template engine for Python with support for variables, f
 - 🔄 **Loops** - `{{#EACH items AS item}}...{{/EACH}}`
 - 📄 **File includes** - `{{#INCLUDE file_path}}`
 - 🎨 **Template rendering** - `{{#RENDER template_path}}`
-- 🧪 **Fully tested** - Comprehensive test suite with 63 tests
+- 🧪 **Fully tested** - Comprehensive test suite with 73 tests
 - 🎯 **Type hints** - Full type annotation support
 - 🏗️ **Extensible** - Modular architecture for custom engines
 
@@ -119,7 +119,7 @@ print(result)  # Output: Hello World!
 ### File Operations
 ```html
 <!-- Include raw file content -->
-{{#INCLUDE header_file}}
+{{#INCLUDE includes/header.html}}
 
 <!-- Render template with full processing -->
 {{#RENDER user_template}}
@@ -152,7 +152,7 @@ print(result)  # Output: Hello World!
             </section>
         {{/IF}}
         
-        {{#RENDER content_template}}
+        {{#RENDER templates/blog_content.html}}
     </main>
     
     {{#INCLUDE footer.html}}
@@ -173,8 +173,6 @@ result = engine.render(
             "format_date": lambda: "2024-01-15"
         }
     ],
-    header_file="includes/header.html",
-    content_template="templates/blog_content.html"
 )
 ```
 

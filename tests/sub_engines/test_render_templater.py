@@ -3,7 +3,7 @@ import tempfile
 from unittest import TestCase
 
 from py_template_engine.sub_engines.RenderTemplater import RenderTemplater
-
+from py_template_engine.RenderError import RenderError
 
 class TestRenderTemplater(TestCase):
 
@@ -167,14 +167,19 @@ class TestRenderTemplater(TestCase):
         result = self.templater.render(template, name="Tom", site_name="App")
         # The .strip() in RenderTemplater should handle whitespace
         self.assertEqual(result, "Hello, Tom! Welcome to App.")
+        
+    def test_file_not_found_dont_raise(self):
+        """Test rendering when template requires variables that aren't provided."""
+        template = "{{#RENDER non_existent_template.html}}"
+        result = self.templater.render(template)
+        self.assertEqual(result, "{{#RENDER non_existent_template.html}}")
 
-    def test_file_not_found_error(self):
-        """Test behavior when rendered template file doesn't exist."""
-        nonexistent_file = os.path.join(self.temp_dir, "nonexistent.html")
-        template = f"{{{{#RENDER {nonexistent_file}}}}}"
-
-        with self.assertRaises(FileNotFoundError):
-            self.templater.render(template)
+    def test_file_not_found_raise(self):
+        """Test rendering when template requires variables that aren't provided."""
+        template = "{{#RENDER non_existent_template.html}}"
+        templater = RenderTemplater(raise_on_error=True)
+        with self.assertRaises(RenderError, msg="Trying to render template but could not find path 'non_existent_template.html'"):
+            templater.render(template)
 
     def test_render_same_template_multiple_times(self):
         """Test rendering the same template file multiple times."""
@@ -202,9 +207,3 @@ class TestRenderTemplater(TestCase):
         except KeyError:
             # If it raises KeyError for missing variables, that's expected
             pass
-
-
-if __name__ == "__main__":
-    import unittest
-
-    unittest.main()

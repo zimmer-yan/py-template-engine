@@ -158,8 +158,4 @@ class TestIfTemplater(TestCase):
         result2 = engine.render(template, a=True, b=True, c=False)
         self.assertEqual(result2, "")
 
-
-if __name__ == "__main__":
-    import unittest
-
-    unittest.main()
+    # TODO: Test with missing variable and raise_on_error=True
